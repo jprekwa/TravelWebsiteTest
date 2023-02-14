@@ -23,24 +23,27 @@ public class HotelSearch {
         driver.findElement(By.xpath("//div[@id='select2-drop']//input")).sendKeys("Dubai");
         driver.findElement(By.xpath("//span[@class='select2-match' and text()='Dubai']")).click();
 
-        //setting check in and check out dates using sendKeys
+        //setting check in and check out dates using sendKeys and calendar
         driver.findElement(By.name("checkin")).sendKeys("20/02/2023");
-        driver.findElement(By.name("checkout")).sendKeys("21/02/2023");
-
-        //setting check in and check out dates using calendar
-        driver.findElement(By.name("checkin")).click();
-        driver.findElements(By.xpath("//td[@class='day ' and text()='15']"))
-                .stream()
-                .filter(element -> element.isDisplayed())
-                .findFirst()
-                .ifPresent(element -> element.click());
-
         driver.findElement(By.name("checkout")).click();
-        driver.findElements(By.xpath("//td[@class='day ' and text()='16']"))
+        driver.findElements(By.xpath("//td[@class='day ' and text()='21']"))
                 .stream()
                 .filter(element -> element.isDisplayed())
                 .findFirst()
                 .ifPresent(element -> element.click());
+
+        //set number of adults and children using '+' button
+        driver.findElement(By.id("travellersInput")).click();
+        driver.findElement(By.id("adultPlusBtn")).click();
+        driver.findElement(By.id("childPlusBtn")).click();
+
+        //clicking on 'Search' button
+        driver.findElement
+                (By.xpath("//button[@class='btn btn-lg btn-block btn-primary pfb0 loader']")).click();
+
+
+
+
 
     }
 
