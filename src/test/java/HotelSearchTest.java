@@ -1,25 +1,14 @@
-import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-import java.time.Duration;
 import java.util.List;
 
-public class HotelSearch {
+public class HotelSearchTest extends BaseTest{
 
     @Test
-    public void hotelSearch(){
-
-        //opening Chrome web browser, maximizing window, waiting for elements and going to the website
-        WebDriverManager.chromedriver().setup();
-        WebDriver driver = new ChromeDriver();
-        driver.manage().window().maximize();
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(3));
-        driver.get("http://www.kurs-selenium.pl/demo/");
+    public void hotelSearchTest(){
 
         //looking for hotel
         driver.findElement(By.xpath("//span[text()='Search by Hotel or City Name']")).click();
@@ -35,7 +24,7 @@ public class HotelSearch {
                 .findFirst()
                 .ifPresent(WebElement::click);
 
-        //set number of adults and children using '+' button
+        //setting number of adults and children using '+' button
         driver.findElement(By.id("travellersInput")).click();
         driver.findElement(By.id("adultPlusBtn")).click();
         driver.findElement(By.id("childPlusBtn")).click();
@@ -56,5 +45,28 @@ public class HotelSearch {
         Assert.assertEquals(hotelNames.get(1), "Oasis Beach Tower");
         Assert.assertEquals(hotelNames.get(2), "Rose Rayhaan Rotana");
         Assert.assertEquals(hotelNames.get(3), "Hyatt Regency Perth");
+    }
+
+    @Test
+    public void searchHotelWithoutNameTest(){
+
+        driver.findElement(By.name("checkin")).sendKeys("15/02/2023");
+        driver.findElement(By.name("checkout")).click();
+        driver.findElements(By.xpath("//td[@class='day ' and text()='16']"))
+                .stream()
+                .filter(WebElement::isDisplayed)
+                .findFirst()
+                .ifPresent(WebElement::click);
+
+        driver.findElement(By.id("travellersInput")).click();
+        driver.findElement(By.id("childPlusBtn")).click();
+        driver.findElement(By.xpath("//button[text()=' Search']")).click();
+
+        //finding no results header and verifying its message
+        WebElement noResultsHeader = driver.findElement(By.xpath("//h2[@class='text-center']"));
+        String noResultMessage = noResultsHeader.getText();
+
+        Assert.assertTrue(noResultsHeader.isDisplayed());
+        Assert.assertEquals(noResultMessage, "No Results Found");
     }
 }
