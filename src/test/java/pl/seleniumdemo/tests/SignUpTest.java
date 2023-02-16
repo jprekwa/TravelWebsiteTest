@@ -11,40 +11,33 @@ import java.util.List;
 public class SignUpTest extends BaseTest {
 
     @Test
-    public void signUpTest(){
+    public void signUpTest() {
 
-        HotelSearchPage hotelSearchPage = new HotelSearchPage(driver);
-        SignUpPage signUpPage = new SignUpPage(driver);
-        LoggedUserPage loggedUserPage = new LoggedUserPage(driver);
         String firstName = "John";
         String lastName = "Doe";
         int random = (int) (Math.random() * 1000);
-        String email = firstName + "." + lastName + random + "@email.com";
-
-        hotelSearchPage.openSignUpForm();
-        signUpPage.setFirstName(firstName);
-        signUpPage.setLastName(lastName);
-        signUpPage.setPhoneNumber("12345678");
-        signUpPage.setEmail(email);
-        signUpPage.setPassword("topSecret");
-        signUpPage.confirmPassword("topSecret");
-        signUpPage.signUp();
+        LoggedUserPage loggedUserPage = new HotelSearchPage(driver)
+                .openSignUpForm()
+                .setFirstName(firstName)
+                .setLastName(lastName)
+                .setPhoneNumber("12345678")
+                .setEmail("john.doe" + random + "@email.com")
+                .setPassword("topSecret")
+                .confirmPassword("topSecret")
+                .signUp();
 
         Assert.assertTrue(loggedUserPage.getHeaderText().contains(lastName));
         Assert.assertEquals(loggedUserPage.getHeaderText(), "Hi, " + firstName + " " + lastName);
     }
 
     @Test
-    public void signUpEmptyFormTest(){
+    public void signUpEmptyFormTest() {
 
-        HotelSearchPage hotelSearchPage = new HotelSearchPage(driver);
-        SignUpPage signUpPage = new SignUpPage(driver);
-
-        hotelSearchPage.openSignUpForm();
+        SignUpPage signUpPage = new HotelSearchPage(driver).openSignUpForm();
         signUpPage.signUp();
 
         List<String> errorMessagesList = signUpPage.getErrorMessagesList();
-        
+
         Assert.assertTrue(errorMessagesList.contains("The Email field is required."));
         Assert.assertTrue(errorMessagesList.contains("The Password field is required."));
         Assert.assertTrue(errorMessagesList.contains("The Password field is required."));
@@ -53,18 +46,16 @@ public class SignUpTest extends BaseTest {
     }
 
     @Test
-    public void invalidEmailFormatTest(){
+    public void invalidEmailFormatTest() {
 
-        HotelSearchPage hotelSearchPage = new HotelSearchPage(driver);
-        SignUpPage signUpPage = new SignUpPage(driver);
-
-        hotelSearchPage.openSignUpForm();
-        signUpPage.setFirstName("John");
-        signUpPage.setLastName("Doe");
-        signUpPage.setPhoneNumber("12345678");
-        signUpPage.setEmail("Invalid Email");
-        signUpPage.setPassword("topSecret");
-        signUpPage.confirmPassword("topSecret");
+        SignUpPage signUpPage = new HotelSearchPage(driver)
+                .openSignUpForm()
+                .setFirstName("John")
+                .setLastName("Doe")
+                .setPhoneNumber("12345678")
+                .setEmail("Invalid Email")
+                .setPassword("topSecret")
+                .confirmPassword("topSecret");
         signUpPage.signUp();
 
         Assert.assertTrue(signUpPage.getErrorMessagesList().contains("The Email field must contain a valid email address."));

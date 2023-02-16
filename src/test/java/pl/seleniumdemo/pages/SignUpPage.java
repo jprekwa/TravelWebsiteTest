@@ -33,39 +33,49 @@ public class SignUpPage {
     @FindBy(xpath = "//div[@class='alert alert-danger']//p")
     private List<WebElement> errorMessages;
 
-    public SignUpPage(WebDriver driver){
+    private WebDriver driver;
+
+    public SignUpPage(WebDriver driver) {
         PageFactory.initElements(driver, this);
+        this.driver = driver;
     }
 
-    public void setFirstName(String firstName){
+    public SignUpPage setFirstName(String firstName) {
         firstNameInput.sendKeys(firstName);
+        return this;
     }
 
-    public void setLastName(String lastName){
+    public SignUpPage setLastName(String lastName) {
         lastNameInput.sendKeys(lastName);
+        return this;
     }
 
-    public void setPhoneNumber(String phoneNumber){
+    public SignUpPage setPhoneNumber(String phoneNumber) {
         phoneInput.sendKeys(phoneNumber);
+        return this;
     }
 
-    public void setEmail(String email){
+    public SignUpPage setEmail(String email) {
         emailInput.sendKeys(email);
+        return this;
     }
 
-    public void setPassword(String password){
+    public SignUpPage setPassword(String password) {
         passwordInput.sendKeys(password);
+        return this;
     }
 
-    public void confirmPassword(String password){
+    public SignUpPage confirmPassword(String password) {
         confirmPasswordInput.sendKeys(password);
+        return this;
     }
 
-    public void signUp(){
+    public LoggedUserPage signUp() {
         signUpButton.click();
+        return new LoggedUserPage(driver);
     }
 
-    public List<String> getErrorMessagesList(){
+    public List<String> getErrorMessagesList() {
         return errorMessages.stream()
                 .map(WebElement::getText)
                 .toList();
