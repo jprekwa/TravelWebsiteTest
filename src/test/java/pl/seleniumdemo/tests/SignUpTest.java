@@ -11,7 +11,7 @@ import java.util.List;
 public class SignUpTest extends BaseTest {
 
     @Test
-    public void signUpTest(){
+    public void signUpTest() {
 
         HotelSearchPage hotelSearchPage = new HotelSearchPage(driver);
         SignUpPage signUpPage = new SignUpPage(driver);
@@ -35,7 +35,7 @@ public class SignUpTest extends BaseTest {
     }
 
     @Test
-    public void signUpEmptyFormTest(){
+    public void signUpEmptyFormTest() {
 
         HotelSearchPage hotelSearchPage = new HotelSearchPage(driver);
         SignUpPage signUpPage = new SignUpPage(driver);
@@ -44,7 +44,7 @@ public class SignUpTest extends BaseTest {
         signUpPage.signUp();
 
         List<String> errorMessagesList = signUpPage.getErrorMessagesList();
-        
+
         Assert.assertTrue(errorMessagesList.contains("The Email field is required."));
         Assert.assertTrue(errorMessagesList.contains("The Password field is required."));
         Assert.assertTrue(errorMessagesList.contains("The Password field is required."));
@@ -53,7 +53,7 @@ public class SignUpTest extends BaseTest {
     }
 
     @Test
-    public void invalidEmailFormatTest(){
+    public void invalidEmailFormatTest() {
 
         HotelSearchPage hotelSearchPage = new HotelSearchPage(driver);
         SignUpPage signUpPage = new SignUpPage(driver);

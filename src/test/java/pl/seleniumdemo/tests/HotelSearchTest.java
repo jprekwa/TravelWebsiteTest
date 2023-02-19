@@ -10,7 +10,7 @@ import java.util.List;
 public class HotelSearchTest extends BaseTest {
 
     @Test
-    public void hotelSearchTest(){
+    public void hotelSearchTest() {
 
         HotelSearchPage hotelSearchPage = new HotelSearchPage(driver);
         hotelSearchPage.setCityName("Dubai");
@@ -29,7 +29,7 @@ public class HotelSearchTest extends BaseTest {
     }
 
     @Test
-    public void searchHotelWithoutNameTest(){
+    public void searchHotelWithoutNameTest() {
 
         HotelSearchPage hotelSearchPage = new HotelSearchPage(driver);
         hotelSearchPage.setDates("16/02/2023", "17/02/2023");

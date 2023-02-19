@@ -15,7 +15,7 @@ public class ResultsPage {
     @FindBy(xpath = "//h2[@class='text-center']")
     private WebElement resultsHeader;
 
-    public ResultsPage(WebDriver driver){
+    public ResultsPage(WebDriver driver) {
         PageFactory.initElements(driver, this);
     }
 
@@ -25,11 +25,11 @@ public class ResultsPage {
                 .toList();
     }
 
-    public String getResultsText(){
+    public String getResultsText() {
         return resultsHeader.getText();
     }
 
-    public WebElement getResultsHeader(){
+    public WebElement getResultsHeader() {
         return this.resultsHeader;
     }
 }
