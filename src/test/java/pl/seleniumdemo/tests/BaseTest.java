@@ -6,7 +6,6 @@ import org.testng.annotations.BeforeMethod;
 import pl.seleniumdemo.utils.DriverFactory;
 
 import java.io.IOException;
-import java.time.Duration;
 
 public class BaseTest {
 
@@ -16,7 +15,6 @@ public class BaseTest {
     public void setup() throws IOException {
         driver = DriverFactory.getDriver();
         driver.manage().window().maximize();
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(3));
         driver.get("http://www.kurs-selenium.pl/demo/");
     }
 
