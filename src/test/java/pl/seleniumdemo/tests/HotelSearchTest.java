@@ -84,5 +84,4 @@ public class HotelSearchTest extends BaseTest {
     public Object[][] data() throws IOException {
         return ExcelReader.readExcel("testData.xlsx");
     }
-
 }
